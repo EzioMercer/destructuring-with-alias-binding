@@ -8,8 +8,8 @@
     "build-loose-windows": "node -e \"fs.mkdirSync(\"\"build\"\", { recursive: true })\" && ecmarkup --load-biblio @tc39/ecma262-biblio --verbose spec.emu build/index.html --lint-spec",
     "update": "npm install --save-dev ecmarkup@latest && npm install --save-dev --save-exact @tc39/ecma262-biblio@latest",
 
-    "start": "npm run build-loose-windows -- --watch",
-    "build": "npm run build-loose-windows -- --strict",
+    "start": "npm run build-loose -- --watch",
+    "build": "npm run build-loose -- --strict",
     "build-loose": "node -e 'fs.mkdirSync(\"build\", { recursive: true })' && ecmarkup --load-biblio @tc39/ecma262-biblio --verbose spec.emu build/index.html --lint-spec"
   },
   "homepage": "https://github.com/EzioMercer/naming-destructed-variables#readme",
