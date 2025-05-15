@@ -75,7 +75,7 @@ main = do
   putStrLn $ processTuple (1, 2) -- Output: First: 1, Second: 2, Original Tuple: (1,2)
 ```
 
-```haskel
+```haskell
 data Person = Person { name :: String, age :: Int } deriving Show
 
 processPerson :: Person -> String
