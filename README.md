@@ -52,5 +52,54 @@ function foo({ prop1, prop2, ..., propN, x } as config) {
 
 In that way I can access the `x` explicitly writing it or get it from `config` like this `config.x` or `config['x']`
 
+---
+
+# Similar possibilities in other languages:
+
+## F# (`as` keyword)
+
+```f#
+let (var1, var2) as tuple = (1, 2)
+
+printfn "var1: %d var2: %d tuple: %A" var1 var2 tuple // Output: var1: 1 var2: 2 tuple: 1,2
+```
+
+## Haskell (`@` symbol)
+
+```haskell
+processTuple :: (Int, Int) -> String
+processTuple t@(a, b) = "First: " ++ show a ++ ", Second: " ++ show b ++ ", Original Tuple: " ++ show t
+
+main :: IO ()
+main = do
+  putStrLn $ processTuple (1, 2) -- Output: First: 1, Second: 2, Original Tuple: (1,2)
+```
+
+```haskel
+data Person = Person { name :: String, age :: Int } deriving Show
+
+processPerson :: Person -> String
+processPerson p@(Person n a) = "Name: " ++ n ++ ", Age: " ++ show a ++ ", Original Person: " ++ show p
+
+main :: IO ()
+main = do
+  let alice = Person { name = "Alice", age = 30 }
+  putStrLn $ processPerson alice -- Output: Name: Alice, Age: 30, Original Person: Person {name = "Alice", age = 30}
+```
+
+## Erlang (`=` symbol)
+
+```erlang
+process_tuple(T={A, B}) ->
+    io:format("First: ~p, Second: ~p, Original Tuple: ~p~n", [A, B, T]). % Output: First: 1, Second: 2, Original Tuple: {1,2}
+
+process_person(P=#{name := N, age := Ag}) ->
+    io:format("Name: ~s, Age: ~p, Original Person: ~p~n", [N, Ag, P]). % Output: Name: Alice, Age: 30, Original Person: #{age => 30,name => "Alice"}
+
+main(_) ->
+    process_tuple({1, 2}),
+    process_person(#{name => "Alice", age => 30}).
+```
+
 You can browse the [ecmarkup output](https://EzioMercer.github.io/naming-destructed-variables/)
 or browse the [source](https://github.com/EzioMercer/naming-destructed-variables/blob/main/spec.emu)
