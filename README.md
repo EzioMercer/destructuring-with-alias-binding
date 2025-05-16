@@ -262,5 +262,32 @@ main(_) ->
     process_person(#{name => "Alice", age => 30}).
 ```
 
+---
+
+# Notes
+
+I suggest `as` keyword because it is the first word which I came up with.
+As we can see, other languages use different syntax for the same thing.
+My suggestion doesn't require the `as` keyword as the solution.
+It can be:
++ keyword: `in`, `into`, `use`, `save`, `template`, `like` or any other suitable word
++ symbol/operator: `=>`, `>>`, `->`, `<=`, `<<`, `<-`, `@`, `#`, `$`, `~` or any other suitable symbol/operator
+
+The keyword or symbol or operator also is not required to come after the destructing syntax
+
+---
+
+### P.S.
+Please don't hesitate to:
+
++ give a star ☆
++ share your ideas
++ share this proposal with others
++ provide more useful examples
++ provide possible problems with this proposal
++ suggest text improvements
++ help with `emu` file
+
+
 You can browse the [ecmarkup output](https://EzioMercer.github.io/naming-destructed-variables/)
 or browse the [source](https://github.com/EzioMercer/naming-destructed-variables/blob/main/spec.emu)
