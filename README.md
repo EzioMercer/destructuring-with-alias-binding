@@ -1,7 +1,5 @@
 # Naming destructed variables
 
----
-
 # Motivations
 
 This proposal suggests a new syntax which will be useful shorthand for saving destructed variables in object
@@ -79,11 +77,9 @@ const foo = ({ prop1, prop2, x } as config) => {
 
 In that way I can access the `x` explicitly writing it or get it from `config` like this `config.x` or `config['x']`
 
----
-
 # Possible solutions without this proposal
 
-## Rewrite with `...args`
+### Rewrite with `...args`
 
 ```js
 const foo = (...args) => {
@@ -108,7 +104,7 @@ argument.
 With this proposal, at least I can easily omit the unnecessary properties which can cause bugs or unexpected
 results
 
-## Rewrite arrow functions into classic functions
+### Rewrite arrow functions into classic functions
 
 ```js
 function foo({
@@ -135,11 +131,9 @@ function foo({
 
 This is the closest approach because now I can access properties both individually and by the alias using `arguments`
 
----
-
 # Features
 
-## Granular control of the passed object
+### Granular control of the passed object
 
 Despite the approach using the `arguments` which is great for first level aliases it is still impossible to control
 second or more levels of object.
@@ -213,11 +207,9 @@ const foo = ({
 }
 ```
 
----
-
 # Similar possibilities in other languages:
 
-## F# (`as` keyword)
+### F# (`as` keyword)
 
 ```f#
 let (var1, var2) as tuple = (1, 2)
@@ -225,7 +217,7 @@ let (var1, var2) as tuple = (1, 2)
 printfn "var1: %d var2: %d tuple: %A" var1 var2 tuple // Output: var1: 1 var2: 2 tuple: 1,2
 ```
 
-## Haskell (`@` symbol)
+### Haskell (`@` symbol)
 
 ```haskell
 processTuple :: (Int, Int) -> String
@@ -248,7 +240,7 @@ main = do
   putStrLn $ processPerson alice -- Output: Name: Alice, Age: 30, Original Person: Person {name = "Alice", age = 30}
 ```
 
-## Erlang (`=` symbol)
+### Erlang (`=` symbol)
 
 ```erlang
 process_tuple(T={A, B}) ->
@@ -262,8 +254,6 @@ main(_) ->
     process_person(#{name => "Alice", age => 30}).
 ```
 
----
-
 # Notes
 
 I suggest `as` keyword because it is the first word which I came up with.
@@ -274,8 +264,6 @@ It can be:
 + symbol/operator: `=>`, `>>`, `->`, `<=`, `<<`, `<-`, `@`, `#`, `$`, `~`, `~>`, `<~` etc.
 
 The keyword or symbol or operator also is not required to come after the destructing syntax
-
----
 
 ### P.S.
 Please don't hesitate to:
