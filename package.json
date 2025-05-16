@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "naming-destructed-variables",
+  "name": "destructuring-with-alias-binding",
   "description": "A repository for ECMAScript proposal about naming destructed variables.",
   "scripts": {
     "start-windows": "npm run build-loose-windows -- --watch",
@@ -12,10 +12,10 @@
     "build": "npm run build-loose -- --strict",
     "build-loose": "node -e 'fs.mkdirSync(\"build\", { recursive: true })' && ecmarkup --load-biblio @tc39/ecma262-biblio --verbose spec.emu build/index.html --lint-spec"
   },
-  "homepage": "https://github.com/EzioMercer/naming-destructed-variables#readme",
+  "homepage": "https://github.com/EzioMercer/destructuring-with-alias-binding#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/EzioMercer/naming-destructed-variables.git"
+    "url": "git+https://github.com/EzioMercer/destructuring-with-alias-binding.git"
   },
   "license": "MIT",
   "engines": {

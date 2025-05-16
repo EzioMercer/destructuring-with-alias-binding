@@ -277,5 +277,5 @@ Please don't hesitate to:
 + help with `emu` file
 
 
-You can browse the [ecmarkup output](https://EzioMercer.github.io/naming-destructed-variables/)
-or browse the [source](https://github.com/EzioMercer/naming-destructed-variables/blob/main/spec.emu)
+You can browse the [ecmarkup output](https://EzioMercer.github.io/destructuring-with-alias-binding/)
+or browse the [source](https://github.com/EzioMercer/destructuring-with-alias-binding/blob/main/spec.emu)
