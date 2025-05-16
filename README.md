@@ -1,4 +1,4 @@
-# Naming destructed variables
+# Destructuring with Alias Binding
 
 # Motivations
 
