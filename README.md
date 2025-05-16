@@ -2,19 +2,28 @@
 
 ---
 
+# Motivations
+
 This proposal suggests a new syntax which will be useful shorthand for saving destructed variables in object
 immediately without the need to repeat them to create a new object
 
 In my practice, it is ubiquitous to write something like this:
 
 ```js
-function foo(config) {
-	const _config = {
-		...config,
-		x: Number(config.x)
-	}
-	
-	console.log(_config);
+const foo = (config) => {
+    const _config = {
+        ...config,
+        x: Number(config.x)
+    }
+    
+    console.log(_config);
+    /*
+    Output:
+    {
+        ...some properties,
+        x: number
+    }
+    */
 }
 ```
 
@@ -23,16 +32,26 @@ function.
 So I have to rewrite it like this:
 
 ```js
-function foo({ prop1, prop2, ..., propN, x }) {
-	const _config = {
-		prop1,
-		prop2,
-		...,
-		propN,
-		x: Number(x)
-	}
-	
-	console.log(_config);
+const foo = ({
+    prop1,
+    prop2,
+    x
+}) => {
+    const _config = {
+        prop1,
+        prop2,
+        x: Number(x)
+    }
+    
+    console.log(_config);
+    /*
+    Output:
+    {
+        prop1: any,
+        prop2: any,
+        x: number
+    }
+    */
 }
 ```
 
@@ -40,17 +59,159 @@ And now the problem is that I have to write the exact same things twice.
 So my proposal is to let rewrite the above code in that way:
 
 ```js
-function foo({ prop1, prop2, ..., propN, x } as config) {
-	const _config = {
-		...config,
-		x: Number(x)
-	}
-	
-	console.log(_config);
+const foo = ({ prop1, prop2, x } as config) => {
+    const _config = {
+        ...config,
+        x: Number(x)
+    }
+    
+    console.log(_config);
+    /*
+    Output:
+    {
+        prop1: any,
+        prop2: any,
+        x: number
+    }
+    */
 }
 ```
 
 In that way I can access the `x` explicitly writing it or get it from `config` like this `config.x` or `config['x']`
+
+---
+
+# Possible solutions without this proposal
+
+## Rewrite with `...args`
+
+```js
+const foo = (...args) => {
+    const _config = {
+        ...args[0],
+        x: Number(x)
+    }
+    
+    console.log(_config);
+    /*
+    Output:
+    {
+        ...some properties,
+        x: number
+    }
+    */
+}
+```
+
+But the problem with this approach is that now I don't have control of which properties will be passed into the first
+argument.
+With this proposal, at least I can easily omit the unnecessary properties which can cause bugs or unexpected
+results
+
+## Rewrite arrow functions into classic functions
+
+```js
+function foo({
+    prop1,
+    prop2,
+    x
+}) {
+    const _config = {
+        ...arguments[0],
+        x: Number(x)
+    }
+    
+    console.log(_config);
+    /*
+    Output:
+    {
+        prop1: any,
+        prop2: any,
+        x: number
+    }
+    */
+}
+```
+
+This is the closest approach because now I can access properties both individually and by the alias using `arguments`
+
+---
+
+# Features
+
+## Granular control of the passed object
+
+Despite the approach using the `arguments` which is great for first level aliases it is still impossible to control
+second or more levels of object.
+But with this proposal we can control like this:
+
+```js
+const foo = ({
+    prop1,
+    prop2,
+    prop3: {
+        prop4,
+        prop5
+    } as innerConfig,
+    prop6: {
+        prop7: {
+            prop8,
+            prop9
+        } as innerInnerInnerConfig
+    } as innerInnerConfig,
+    x
+} as config) => {
+    const _config = {
+        ...config,
+        x: Number(x)
+    }
+    
+    console.log(_config);
+    /*
+    {
+        prop1: any,
+        prop2: any,
+        prop3: {
+            prop4: any,
+            prop5: any
+        },
+        prop6: {
+            prop7: {
+                prop8: any,
+                prop9: any
+            }
+        },
+        x: number
+    }
+    */
+    
+    console.log(innerConfig);
+    /*
+    {
+        prop4: any,
+        prop5: any
+    }
+    */
+    
+    console.log(innerInnerConfig);
+    /*
+    {
+        prop7: {
+            prop8: any,
+            prop9: any
+        }
+    }
+    */
+    
+    console.log(innerInnerInnerConfig);
+    /*
+    {
+        prop8: any,
+        prop9: any
+    }
+    */
+}
+```
 
 ---
 
