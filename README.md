@@ -270,8 +270,8 @@ I suggest `as` keyword because it is the first word which I came up with.
 As we can see, other languages use different syntax for the same thing.
 My suggestion doesn't require the `as` keyword as the solution.
 It can be:
-+ keyword: `in`, `into`, `use`, `save`, `template`, `like` or any other suitable word
-+ symbol/operator: `=>`, `>>`, `->`, `<=`, `<<`, `<-`, `@`, `#`, `$`, `~` or any other suitable symbol/operator
++ keyword: `in`, `into`, `use`, `save`, `template`, `like` etc.
++ symbol/operator: `=>`, `>>`, `->`, `<=`, `<<`, `<-`, `@`, `#`, `$`, `~`, `~>`, `<~` etc.
 
 The keyword or symbol or operator also is not required to come after the destructing syntax
 
