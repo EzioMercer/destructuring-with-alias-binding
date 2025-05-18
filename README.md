@@ -1,5 +1,19 @@
 # Destructuring with Alias Binding
 
+# Table of content:
++ [Motivations](#motivations)
++ [Possible solutions without this proposal](#possible-solutions-without-this-proposal)
+  + [Rewrite with ...args](#rewrite-with-args)
+  + [Rewrite arrow functions into classic functions](#rewrite-arrow-functions-into-classic-functions)
++ [Features](#features)
+  + [Granular control of the passed object](#granular-control-of-the-passed-object)
+  + [More easy way to create objects from an existing object](#more-easy-way-to-create-objects-from-an-existing-object)
++ [Similar possibilities in other languages](#similar-possibilities-in-other-languages)
+  + [F#](#f-as-keyword)
+  + [Haskell](#haskell--symbol)
+  + [Erlang](#erlang--symbol)
++ [Notes](#notes)
+
 # Motivations
 
 This proposal suggests a new syntax which will be useful shorthand for saving destructed variables in object
@@ -133,7 +147,7 @@ This is the closest approach because now I can access properties both individual
 
 # Features
 
-### Granular control of the passed object
+## Granular control of the passed object
 
 Despite the approach using the `arguments` which is great for first level aliases it is still impossible to control
 second or more levels of object.
@@ -207,7 +221,86 @@ const foo = ({
 }
 ```
 
-# Similar possibilities in other languages:
+## More easy way to create objects from an existing object
+
+```js
+const foo = {
+    a: 1,
+    b: 2,
+    c: {
+        d: 3,
+        e: 4
+    },
+    f: {
+        g: {
+            h: 5,
+            i: 6
+        },
+        j: 7,
+        k: 8
+    }
+}
+
+const { a, b } as first = foo;
+const { c: { d, e } } as second = foo;
+const { f: { g, j, k } } as third = foo;
+const { f: { g: { h, i } } } as fourth = foo;
+
+// Or combine them
+const { a, b } as first = foo;
+const {
+    c: {
+        d, e
+    } as second,
+    f: {
+        g: {
+            h,
+            i
+        } as fourth,
+        j,
+        k
+    } as third
+} = foo
+
+console.log(first);
+/*
+{
+    a: 1,
+    b: 2
+}
+*/
+
+console.log(second);
+/*
+{
+    d: 3,
+    e: 4
+}
+*/
+
+
+console.log(third);
+/*
+{
+    g: {
+        h: 5,
+        i: 6
+    },
+    j: 7,
+    k: 8
+}
+*/
+
+console.log(fourth);
+/*
+{
+    h: 5,
+    i: 6
+}
+*/
+```
+
+# Similar possibilities in other languages
 
 ### F# (`as` keyword)
 
