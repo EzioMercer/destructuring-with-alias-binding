@@ -300,6 +300,42 @@ console.log(fourth);
 */
 ```
 
+# Improvements
+
+## Grouping
+
+As you can see from [this example,](#more-easy-way-to-create-objects-from-an-existing-object) we can't combine the first
+level properties into a big one because they are directly inside an object.
+But if we allow grouping syntax, then it is easy to combine them too.
+For example, we can use object syntax for grouping:
+
+```js
+const { a, b } as first = foo;
+const { c: { d, e } } as second = foo;
+const { f: { g, j, k } } as third = foo;
+const { f: { g: { h, i } } } as fourth = foo;
+
+// We can rewrite it to:
+
+const {
+    {
+        a,
+        b
+    } as first,
+    c: {
+        d, e
+    } as second,
+    f: {
+        g: {
+            h,
+            i
+        } as fourth,
+        j,
+        k
+    } as third
+} = foo
+```
+
 # Similar possibilities in other languages
 
 ### F# (`as` keyword)
@@ -357,6 +393,14 @@ It can be:
 + symbol/operator: `=>`, `>>`, `->`, `<=`, `<<`, `<-`, `@`, `#`, `$`, `~`, `~>`, `<~` etc.
 
 The keyword or symbol or operator also is not required to come after the destructing syntax
+
+# Links
+
+## Proposal discussions
+
++ [Destructuring with Alias Binding](https://es.discourse.group/t/destructuring-with-alias-binding/2370)
+
+---
 
 ### P.S.
 Please don't hesitate to:
