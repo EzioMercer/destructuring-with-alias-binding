@@ -12,7 +12,11 @@
   + [F#](#f-as-keyword)
   + [Haskell](#haskell--symbol)
   + [Erlang](#erlang--symbol)
++ [Improvements](#improvements)
+  + [Grouping](#grouping)
 + [Notes](#notes)
++ [Links](#links)
+  + [Discussions](#discussions)
 
 # Motivations
 
@@ -250,7 +254,8 @@ const { f: { g: { h, i } } } as fourth = foo;
 const { a, b } as first = foo;
 const {
     c: {
-        d, e
+        d,
+        e
     } as second,
     f: {
         g: {
@@ -323,7 +328,8 @@ const {
         b
     } as first,
     c: {
-        d, e
+        d,
+        e
     } as second,
     f: {
         g: {
@@ -334,6 +340,82 @@ const {
         k
     } as third
 } = foo
+```
+
+Also, it can be useful to grouping properties from different levels of depths:
+
+```js
+const foo = {
+    a: 1,
+    b: 2,
+    c: {
+        d: 3,
+        e: 4
+    },
+    f: {
+        g: {
+            h: 5,
+            i: 6
+        },
+        j: 7,
+        k: 8
+    }
+}
+
+const {
+    {
+        a,
+        b,
+        c: {
+            d,
+            e
+        }
+    } as first,
+    {
+      c: {
+          d,
+          e
+      },
+      f: {
+          j,
+          k
+      } as third
+    } as second
+}
+
+console.log(first);
+/*
+{
+    a: 1,
+    b: 2,
+    c: {
+        d: 3,
+        e: 4
+    }
+}
+*/
+
+console.log(second);
+/*
+{
+    c: {
+        d: 3,
+        e: 4
+    },
+    f: {
+        j: 7,
+        k: 8
+    }
+}
+*/
+
+console.log(third);
+/*
+{
+    j: 7,
+    k: 8
+}
+*/
 ```
 
 # Similar possibilities in other languages
@@ -396,7 +478,7 @@ The keyword or symbol or operator also is not required to come after the destruc
 
 # Links
 
-## Proposal discussions
+## Discussions
 
 + [Destructuring with Alias Binding](https://es.discourse.group/t/destructuring-with-alias-binding/2370)
 
